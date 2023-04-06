@@ -1,0 +1,44 @@
+// Time Comparison of Array vs LinkedList
+
+#include <iostream>
+#include <chrono>
+#include "array_stack.cpp"
+#include "linked_list_stack.cpp"
+
+using namespace std;
+using namespace std::chrono;
+
+int main() {
+    StackArray arrStack;
+    StackLinkedList llStack;
+
+    auto start = high_resolution_clock::now();
+    for (int i = 0; i < 10000; i++) {
+        arrStack.push(i);
+    }
+    for (int i = 0; i < 10000; i++) {
+        arrStack.pop();
+    }
+    auto stop = high_resolution_clock::now();
+    auto durationArr = duration_cast<microseconds>(stop - start);
+
+    start = high_resolution_clock::now();
+    for (int i = 0; i < 10000; i++) {
+        llStack.push(i);
+    }
+    for (int i = 0; i < 10000; i++) {
+        llStack.pop();
+    }
+    stop = high_resolution_clock::now();
+    auto durationLL = duration_cast<microseconds>(stop - start);
+
+    cout << "Time taken by array implementation: " << durationArr.count() << " microseconds." << endl;
+    cout << "Time taken by linked list implementation: " << durationLL.count() << " microseconds." << endl;
+
+    return 0;
+}
+
+
+// Results
+// Time taken by array implementation: 195 microseconds.
+// Time taken by linked list implementation: 216 microseconds.

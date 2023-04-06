@@ -1,0 +1,91 @@
+#include <iostream>
+using namespace std;
+
+class Node {
+    public:
+        int data;
+        Node* next;
+};
+
+class Stack {
+    private:
+        Node* top;
+        int maxSize;
+        int size;
+    public:
+        Stack(int size) {
+            top = NULL;
+            maxSize = size;
+            this->size = 0;
+        }
+        void push(int value) {
+            if (isFull()) {
+                cout << "Stack Overflow" << endl;
+            }
+            else {
+                Node* newNode = new Node();
+                newNode->data = value;
+                newNode->next = top;
+                top = newNode;
+                size++;
+            }
+        }
+        int pop() {
+            if (isEmpty()) {
+                cout << "Stack Underflow" << endl;
+                return -1;
+            }
+            else {
+                int temp = top->data;
+                Node* nodeToDelete = top;
+                top = top->next;
+                delete nodeToDelete;
+                size--;
+                return temp;
+            }
+        }
+        bool isEmpty() {
+            return (top == NULL);
+        }
+        bool isFull() {
+            return (size == maxSize);
+        }
+        int stackTop() {
+            if (isEmpty()) {
+                cout << "Stack is empty" << endl;
+                return -1;
+            }
+            else {
+                return top->data;
+            }
+        }
+        void display() {
+            if (isEmpty()) {
+                cout << "Stack is empty" << endl;
+            }
+            else {
+                cout << "Stack elements: ";
+                Node* current = top;
+                while (current != NULL) {
+                    cout << current->data << " ";
+                    current = current->next;
+                }
+                cout << endl;
+            }
+        }
+};
+
+int main() {
+    Stack s(5);
+    s.push(1);
+    s.push(2);
+    s.push(3);
+    s.push(4);
+    s.push(5);
+    s.push(6);
+    s.pop();
+    s.pop();
+    s.display();
+    cout << "Top of the stack: " << s.stackTop() << endl;
+    return 0;
+}

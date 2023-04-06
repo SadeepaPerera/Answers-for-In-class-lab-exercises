@@ -1,0 +1,3 @@
+Results.
+Time taken by array implementation: 195 microseconds.
+Time taken by linked list implementation: 216 microseconds.
